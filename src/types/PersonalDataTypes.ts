@@ -1,4 +1,4 @@
-import { PersonalData } from "@prisma/client";
+import { DriverLicenseType, PersonalData } from "@prisma/client";
 
 export interface IPersonalData {
   id: number;
@@ -11,9 +11,9 @@ export interface IPersonalData {
   postalCode: string;
   city: string;
   birthday: string;
-  typeDriverLicense: string;
   linkedin: string;
   userId: number;
+  typeDriverLicense: DriverLicenseType;
   createdAt: string;
 }
 
