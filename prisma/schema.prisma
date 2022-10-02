@@ -11,10 +11,84 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique @db.VarChar
-  password  String   @db.VarChar(255)
-  createdAt DateTime @default(now()) @db.Timestamptz()
+  id           Int            @id @default(autoincrement())
+  email        String         @unique @db.VarChar
+  password     String         @db.VarChar(255)
+  createdAt    DateTime       @default(now()) @db.Timestamptz()
+  PersonalData PersonalData[]
 
   @@map("users")
+}
+
+model PersonalData {
+  id            Int          @id @default(autoincrement())
+  title         String       @db.VarChar(255)
+  firstName     String       @db.VarChar(255)
+  lastName      String       @db.VarChar(255)
+  imageUser     String       @db.VarChar(255)
+  email         String       @db.VarChar(255)
+  numberPhone   String       @db.VarChar(11)
+  postalCode    String       @db.VarChar(255)
+  city          String       @db.VarChar(255)
+  birthday      String       @db.VarChar(255)
+  driverLicense String       @db.VarChar(255)
+  linkedin      String       @db.VarChar(255)
+  userId        Int
+  user          User         @relation(fields: [userId], references: [id])
+  Formation     Formation[]
+  Experience    Experience[]
+  Skill         Skill[]
+  Language      Language[]
+
+  @@map("personalsDatas")
+}
+
+model Formation {
+  id             Int          @id @default(autoincrement())
+  formation      String       @db.VarChar(255)
+  institution    String       @db.VarChar(255)
+  city           String       @db.VarChar(255)
+  monthStart     String       @db.VarChar(2)
+  yearStart      String       @db.VarChar(4)
+  monthEnd       String       @db.VarChar(2)
+  yearEnd        String       @db.VarChar(4)
+  description    String       @db.VarChar(255)
+  personalDataId Int
+  personalData   PersonalData @relation(fields: [personalDataId], references: [id])
+
+  @@map("formations")
+}
+
+model Experience {
+  id             Int          @id @default(autoincrement())
+  occupation     String       @db.VarChar(255)
+  company        String       @db.VarChar(255)
+  city           String       @db.VarChar(255)
+  monthStart     String       @db.VarChar(2)
+  yearStart      String       @db.VarChar(4)
+  monthEnd       String       @db.VarChar(2)
+  yearEnd        String       @db.VarChar(4)
+  description    String       @db.VarChar(255)
+  personalDataId Int
+  personalData   PersonalData @relation(fields: [personalDataId], references: [id])
+
+  @@map("experiences")
+}
+
+model Skill {
+  id             Int          @id @default(autoincrement())
+  skill          String       @db.VarChar(255)
+  personalDataId Int
+  personalData   PersonalData @relation(fields: [personalDataId], references: [id])
+
+  @@map("skills")
+}
+
+model Language {
+  id             Int          @id @default(autoincrement())
+  language       String       @db.VarChar(255)
+  personalDataId Int
+  personalData   PersonalData @relation(fields: [personalDataId], references: [id])
+
+  @@map("languages")
 }
