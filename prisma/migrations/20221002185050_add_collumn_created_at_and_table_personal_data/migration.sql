@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "personalsDatas" ADD COLUMN     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP;
