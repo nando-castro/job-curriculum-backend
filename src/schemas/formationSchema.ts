@@ -10,4 +10,5 @@ export const formationSchema = joi.object<IFormation>({
   monthEnd: joi.string().max(2).required(),
   yearEnd: joi.string().max(4).required(),
   description: joi.string().required(),
+  personalDataId: joi.number().required(),
 });
