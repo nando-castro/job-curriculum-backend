@@ -2,22 +2,25 @@ import { TypePersonalDataData } from "./../types/PersonalDataTypes";
 import client from "../databases/database";
 
 export async function insert(data: TypePersonalDataData) {
-  await client.personalData.create({
+  const rows = await client.personalData.create({
     data: {
       title: data.title,
       firstName: data.firstName,
       lastName: data.lastName,
-      imageUser: data.imageUser,
+      picture: data.picture,
       email: data.email,
       numberPhone: data.numberPhone,
+      address: data.address,
       postalCode: data.postalCode,
       city: data.city,
+      office: data.office,
       birthday: data.birthday,
       linkedin: data.linkedin,
       userId: data.userId,
       typeDriverLicense: data.typeDriverLicense,
     },
   });
+  return rows;
 }
 
 export async function getById(userId: number) {

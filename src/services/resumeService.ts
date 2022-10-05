@@ -10,5 +10,6 @@ export async function createResume(userId: number, data: TypePersonalDataData) {
 
   if (resumeTitleExists) throw conflictError(`Title exists`);
   const dataResume = { ...data, userId };
-  await resumeRepository.insert(dataResume);
+  const { id } = await resumeRepository.insert(dataResume);
+  return id;
 }

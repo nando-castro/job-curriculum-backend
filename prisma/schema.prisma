@@ -25,11 +25,13 @@ model PersonalData {
   title             String             @db.VarChar(255)
   firstName         String             @db.VarChar(255)
   lastName          String             @db.VarChar(255)
-  imageUser         String             @db.VarChar(255)
+  picture           String             @db.VarChar(255)
   email             String             @db.VarChar(255)
   numberPhone       String             @db.VarChar(11)
+  address           String             @db.VarChar(255)
   postalCode        String             @db.VarChar(255)
   city              String             @db.VarChar(255)
+  office            String             @db.VarChar(255)
   birthday          String?
   typeDriverLicense DriverLicenseType?
   linkedin          String?

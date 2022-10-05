@@ -5,11 +5,13 @@ export interface IPersonalData {
   title: string;
   firstName: string;
   lastName: string;
-  imageUser: string;
+  picture: string;
   email: string;
   numberPhone: string;
+  address: string;
   postalCode: string;
   city: string;
+  office: string;
   birthday: string;
   linkedin: string;
   userId: number;
