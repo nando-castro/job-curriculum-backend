@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker";
 
-async function registerFormation() {
+async function registerExperience() {
   return {
-    formation: faker.lorem.words(1),
-    institution: faker.lorem.word(2),
+    occupation: faker.lorem.words(1),
+    company: faker.lorem.word(2),
     city: faker.address.city(),
     monthStart: "01",
     yearStart: "2012",
@@ -13,8 +13,8 @@ async function registerFormation() {
   };
 }
 
-const formationFactory = {
-  registerFormation,
+const experienceFactory = {
+  registerExperience,
 };
 
-export default formationFactory;
+export default experienceFactory;

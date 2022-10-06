@@ -6,6 +6,7 @@ import userFactory from "../factories/userFactory";
 import scenarioFactory from "../factories/scenarioFactory";
 import personalDataFactory from "../factories/personalDataFactory";
 import formationFactory from "../factories/formationFactory";
+import experienceFactory from "../factories/experienceFactory";
 
 let token: string;
 
@@ -156,7 +157,7 @@ describe("Testa a rota POST /resume/create", () => {
     expect(response.status).toBe(401);
   });
 });
-describe("Testa a rota POST /resume/create", () => {
+describe("Testa a rota POST /formation/create", () => {
   it("Deve retornar 201, se usuario adicionar uma formacao ao curriculo", async () => {
     const userRegister = await userFactory.registerUser();
 
@@ -251,6 +252,106 @@ describe("Testa a rota POST /resume/create", () => {
     const response = await supertest(app)
       .post("/formation/create")
       .send(formationData);
+
+    expect(response.status).toBe(401);
+  });
+});
+
+describe("Testa a rota POST /experience/create", () => {
+  it("Deve retornar 201, se usuario adicionar uma experiencia ao curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const personalData = await personalDataFactory.registerPersonalData();
+
+    const resultResume = await supertest(app)
+      .post("/resume/create")
+      .set({ Authorization: token })
+      .send(personalData);
+
+    const experience = await experienceFactory.registerExperience();
+
+    const experienceData = {
+      ...experience,
+      personalDataId: resultResume.body.idResume,
+    };
+
+    const response = await supertest(app)
+      .post("/experience/create")
+      .set({ Authorization: token })
+      .send(experienceData);
+
+    expect(response.status).toBe(201);
+  });
+
+  it("Deve retornar 422, se usuario adicionar uma experiencia com com algum dado incorreto ao curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const experience = {};
+
+    const response = await supertest(app)
+      .post("/experience/create")
+      .set({ Authorization: token })
+      .send(experience);
+
+    expect(response.status).toBe(422);
+  });
+
+  it("Deve retornar 401, se usuario invalido tentar adicionar uma experiencia ao curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const personalData = await personalDataFactory.registerPersonalData();
+
+    const resultResume = await supertest(app)
+      .post("/resume/create")
+      .set({ Authorization: token })
+      .send(personalData);
+
+    const experience = await formationFactory.registerFormation();
+
+    const experienceData = {
+      ...experience,
+      personalDataId: resultResume.body.idResume,
+    };
+
+    const response = await supertest(app)
+      .post("/experience/create")
+      .send(experienceData);
 
     expect(response.status).toBe(401);
   });
