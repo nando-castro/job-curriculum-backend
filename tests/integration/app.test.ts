@@ -1,12 +1,15 @@
+import jwt from "jsonwebtoken";
 import app from "../../src";
 import supertest from "supertest";
 import client from "../../src/databases/database";
 import userFactory from "../factories/userFactory";
+import scenarioFactory from "../factories/scenarioFactory";
+import personalDataFactory from "../factories/personalDataFactory";
 
 let token: string;
 
 beforeEach(async () => {
-  await client.$executeRaw`TRUNCATE TABLE "users"`;
+  scenarioFactory.deleteAllData();
 });
 
 beforeAll(async () => {
@@ -78,5 +81,77 @@ describe("Testa a rota POST /signin", () => {
     };
     const result = await supertest(app).post(`/signin`).send(userLogin);
     expect(result.status).toBe(422);
+  });
+});
+describe("Testa a rota POST /resume/create", () => {
+  it("Deve retornar 201, se usuario criar um curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const personalData = await personalDataFactory.registerPersonalData();
+
+    const response = await supertest(app)
+      .post("/resume/create")
+      .set({ Authorization: token })
+      .send(personalData);
+
+    expect(response.status).toBe(201);
+  });
+  it("Deve retornar 422, se alguma informacao estiver mal formatada ou errada", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const personalData = {};
+
+    const response = await supertest(app)
+      .post("/resume/create")
+      .set({ Authorization: token })
+      .send(personalData);
+
+    expect(response.status).toBe(422);
+  });
+  it("Deve retornar 401, se token ou usuario invalido", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+
+    const personalData = {};
+
+    const response = await supertest(app)
+      .post("/resume/create")
+      .send(personalData);
+
+    expect(response.status).toBe(401);
   });
 });

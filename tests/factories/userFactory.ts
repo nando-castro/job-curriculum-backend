@@ -14,12 +14,6 @@ async function registerUser() {
 
 async function createLogin(email: string, password: string) {
   const user = await client.user.findUnique({ where: { email } });
-  // const user = await client.user.create({
-  //   data: {
-  //     email,
-  //     password: bcrypt.hashSync(password, 10),
-  //   },
-  // });
   return { ...user, password: password };
 }
 
