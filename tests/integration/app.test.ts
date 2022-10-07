@@ -8,6 +8,7 @@ import personalDataFactory from "../factories/personalDataFactory";
 import formationFactory from "../factories/formationFactory";
 import experienceFactory from "../factories/experienceFactory";
 import skillFactory from "../factories/skillFactory";
+import languageFactory from "../factories/languageFactory";
 
 let token: string;
 
@@ -450,6 +451,105 @@ describe("Testa a rota POST /skill/create", () => {
     };
 
     const response = await supertest(app).post("/skill/create").send(skillData);
+
+    expect(response.status).toBe(401);
+  });
+});
+describe("Testa a rota POST /language/create", () => {
+  it("Deve retornar 201, se usuario adicionar um idioma ao curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const personalData = await personalDataFactory.registerPersonalData();
+
+    const resultResume = await supertest(app)
+      .post("/resume/create")
+      .set({ Authorization: token })
+      .send(personalData);
+
+    const language = await languageFactory.registerLanguage();
+
+    const languageData = {
+      ...language,
+      personalDataId: resultResume.body.idResume,
+    };
+
+    const response = await supertest(app)
+      .post("/language/create")
+      .set({ Authorization: token })
+      .send(languageData);
+
+    expect(response.status).toBe(201);
+  });
+
+  it("Deve retornar 422, se usuario adicionar um idioma com com algum dado incorreto ao curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const language = {};
+
+    const response = await supertest(app)
+      .post("/language/create")
+      .set({ Authorization: token })
+      .send(language);
+
+    expect(response.status).toBe(422);
+  });
+
+  it("Deve retornar 401, se usuario invalido tentar adicionar um idioma ao curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const personalData = await personalDataFactory.registerPersonalData();
+
+    const resultResume = await supertest(app)
+      .post("/resume/create")
+      .set({ Authorization: token })
+      .send(personalData);
+
+    const language = await languageFactory.registerLanguage();
+
+    const languageData = {
+      ...language,
+      personalDataId: resultResume.body.idResume,
+    };
+
+    const response = await supertest(app)
+      .post("/language/create")
+      .send(languageData);
 
     expect(response.status).toBe(401);
   });
