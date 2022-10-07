@@ -7,6 +7,7 @@ import scenarioFactory from "../factories/scenarioFactory";
 import personalDataFactory from "../factories/personalDataFactory";
 import formationFactory from "../factories/formationFactory";
 import experienceFactory from "../factories/experienceFactory";
+import skillFactory from "../factories/skillFactory";
 
 let token: string;
 
@@ -352,6 +353,103 @@ describe("Testa a rota POST /experience/create", () => {
     const response = await supertest(app)
       .post("/experience/create")
       .send(experienceData);
+
+    expect(response.status).toBe(401);
+  });
+});
+describe("Testa a rota POST /skill/create", () => {
+  it("Deve retornar 201, se usuario adicionar uma habilidade ao curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const personalData = await personalDataFactory.registerPersonalData();
+
+    const resultResume = await supertest(app)
+      .post("/resume/create")
+      .set({ Authorization: token })
+      .send(personalData);
+
+    const skill = await skillFactory.registerSkill();
+
+    const skillData = {
+      ...skill,
+      personalDataId: resultResume.body.idResume,
+    };
+
+    const response = await supertest(app)
+      .post("/skill/create")
+      .set({ Authorization: token })
+      .send(skillData);
+
+    expect(response.status).toBe(201);
+  });
+
+  it("Deve retornar 422, se usuario adicionar uma habilidade com com algum dado incorreto ao curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const skill = {};
+
+    const response = await supertest(app)
+      .post("/skill/create")
+      .set({ Authorization: token })
+      .send(skill);
+
+    expect(response.status).toBe(422);
+  });
+
+  it("Deve retornar 401, se usuario invalido tentar adicionar uma habilidade ao curriculo", async () => {
+    const userRegister = await userFactory.registerUser();
+
+    await supertest(app).post(`/signup`).send(userRegister);
+    const userData = await userFactory.createLogin(
+      userRegister.email,
+      userRegister.password
+    );
+
+    const result = await supertest(app).post(`/signin`).send({
+      email: userData.email,
+      password: userData.password,
+    });
+    token = result.body.token;
+
+    const personalData = await personalDataFactory.registerPersonalData();
+
+    const resultResume = await supertest(app)
+      .post("/resume/create")
+      .set({ Authorization: token })
+      .send(personalData);
+
+    const skill = await skillFactory.registerSkill();
+
+    const skillData = {
+      ...skill,
+      personalDataId: resultResume.body.idResume,
+    };
+
+    const response = await supertest(app).post("/skill/create").send(skillData);
 
     expect(response.status).toBe(401);
   });
