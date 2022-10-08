@@ -14,4 +14,7 @@ resumeRouter.post(
   resumeController.createResume
 );
 
+resumeRouter.get("/resume", resumeController.getResume);
+resumeRouter.get("/resumes", resumeController.getResumes);
+
 export { resumeRouter };

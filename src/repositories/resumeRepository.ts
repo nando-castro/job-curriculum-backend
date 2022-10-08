@@ -23,9 +23,23 @@ export async function insert(data: TypePersonalDataData) {
   return rows;
 }
 
-export async function getById(userId: number) {
+export async function findByUserId(userId: number) {
   const rows = await client.personalData.findMany({
     where: { userId },
+  });
+  return rows;
+}
+
+export async function findByResumeId(resumeId: number) {
+  const rows = await client.personalData.findUnique({
+    where: { id: resumeId },
+  });
+  return rows;
+}
+
+export async function findResumeById(userId: number, resumeId: number) {
+  const rows = await client.personalData.findMany({
+    where: { id: resumeId, userId },
   });
   return rows;
 }
