@@ -8,3 +8,10 @@ export async function createFormation(req: Request, res: Response) {
   await formationService.createFormation(dataFormation);
   res.sendStatus(201);
 }
+
+export async function getFormations(req: Request, res: Response) {
+  const { resumeId } = req.body;
+
+  const formations = await formationService.getFormations(resumeId);
+  res.status(200).send(formations);
+}

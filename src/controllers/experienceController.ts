@@ -8,3 +8,10 @@ export async function createExperience(req: Request, res: Response) {
   await experienceService.createExperience(dataExperience);
   res.sendStatus(201);
 }
+
+export async function getExperiences(req: Request, res: Response) {
+  const { resumeId } = req.body;
+
+  const experiences = await experienceService.getExperiences(resumeId);
+  res.status(200).send(experiences);
+}

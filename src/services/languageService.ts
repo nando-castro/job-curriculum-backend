@@ -6,3 +6,8 @@ export async function createLanguage(data: TypeLanguageData) {
   const result = await languageRepository.insert(dataLanguage);
   return result;
 }
+
+export async function getLanguages(resumeId: number) {
+  const result = await languageRepository.findByResumeId(resumeId);
+  return result;
+}

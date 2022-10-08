@@ -14,4 +14,6 @@ experienceRouter.post(
   experienceController.createExperience
 );
 
+experienceRouter.get("/experiences", experienceController.getExperiences);
+
 export { experienceRouter };

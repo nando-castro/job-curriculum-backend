@@ -6,3 +6,8 @@ export async function createFormation(data: TypeFormationData) {
   const result = await formationRepository.insert(dataFormation);
   return result;
 }
+
+export async function getFormations(resumeId: number) {
+  const result = await formationRepository.findByResumeId(resumeId);
+  return result;
+}

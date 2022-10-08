@@ -14,4 +14,6 @@ skillRouter.post(
   skillController.createSkill
 );
 
+skillRouter.get("/skills", skillController.getSkills);
+
 export { skillRouter };

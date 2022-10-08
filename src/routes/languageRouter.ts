@@ -14,4 +14,6 @@ languageRouter.post(
   languageController.createLanguage
 );
 
+languageRouter.get("/languages", languageController.getLanguages);
+
 export { languageRouter };

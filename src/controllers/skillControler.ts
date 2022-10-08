@@ -7,3 +7,10 @@ export async function createSkill(req: Request, res: Response) {
   await skillService.createSkill(dataSkill);
   res.sendStatus(201);
 }
+
+export async function getSkills(req: Request, res: Response) {
+  const { resumeId } = req.body;
+
+  const skills = await skillService.getSkills(resumeId);
+  res.status(200).send(skills);
+}

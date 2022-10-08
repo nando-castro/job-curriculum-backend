@@ -17,3 +17,10 @@ export async function insert(data: TypeFormationData) {
   });
   return rows;
 }
+
+export async function findByResumeId(resumeId: number) {
+  const rows = await client.formation.findMany({
+    where: { personalDataId: resumeId },
+  });
+  return rows;
+}

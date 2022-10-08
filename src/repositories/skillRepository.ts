@@ -10,3 +10,10 @@ export async function insert(data: TypeSkillData) {
   });
   return rows;
 }
+
+export async function findByResumeId(resumeId: number) {
+  const rows = await client.skill.findMany({
+    where: { personalDataId: resumeId },
+  });
+  return rows;
+}

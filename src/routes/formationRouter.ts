@@ -14,4 +14,6 @@ formationRouter.post(
   formationController.createFormation
 );
 
+formationRouter.get("/formations", formationController.getFormations);
+
 export { formationRouter };

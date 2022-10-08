@@ -17,3 +17,10 @@ export async function insert(data: TypeExperienceData) {
   });
   return rows;
 }
+
+export async function findByResumeId(resumeId: number) {
+  const rows = await client.experience.findMany({
+    where: { personalDataId: resumeId },
+  });
+  return rows;
+}

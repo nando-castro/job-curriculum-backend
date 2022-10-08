@@ -10,3 +10,9 @@ export async function insert(data: TypeLanguageData) {
   });
   return rows;
 }
+export async function findByResumeId(resumeId: number) {
+  const rows = await client.language.findMany({
+    where: { personalDataId: resumeId },
+  });
+  return rows;
+}

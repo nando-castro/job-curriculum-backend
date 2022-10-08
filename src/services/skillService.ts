@@ -6,3 +6,8 @@ export async function createSkill(data: TypeSkillData) {
   const result = await skillRepository.insert(dataSkill);
   return result;
 }
+
+export async function getSkills(resumeId: number) {
+  const result = await skillRepository.findByResumeId(resumeId);
+  return result;
+}
