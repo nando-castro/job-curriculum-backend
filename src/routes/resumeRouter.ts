@@ -14,7 +14,13 @@ resumeRouter.post(
   resumeController.createResume
 );
 
-resumeRouter.get("/resume", resumeController.getResume);
+resumeRouter.get("/resume/:resumeId", resumeController.getResume);
 resumeRouter.get("/resumes", resumeController.getResumes);
+
+resumeRouter.put(
+  "/resume/update/:resumeId",
+  schemaValidateMiddleware(personalDataSchema),
+  resumeController.updateResume
+);
 
 export { resumeRouter };

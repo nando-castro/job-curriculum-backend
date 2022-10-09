@@ -14,6 +14,9 @@ experienceRouter.post(
   experienceController.createExperience
 );
 
-experienceRouter.get("/experiences", experienceController.getExperiences);
+experienceRouter.get(
+  "/experiences/:resumeId",
+  experienceController.getExperiences
+);
 
 export { experienceRouter };

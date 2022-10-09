@@ -10,8 +10,8 @@ export async function createFormation(req: Request, res: Response) {
 }
 
 export async function getFormations(req: Request, res: Response) {
-  const { resumeId } = req.body;
+  const { resumeId } = req.params;
 
-  const formations = await formationService.getFormations(resumeId);
+  const formations = await formationService.getFormations(Number(resumeId));
   res.status(200).send(formations);
 }

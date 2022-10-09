@@ -25,3 +25,16 @@ export async function getResumes(userId: number) {
   const resume = await resumeRepository.findByUserId(userId);
   return resume;
 }
+
+export async function updateResume(
+  resumeId: number,
+  userId: number,
+  data: TypePersonalDataData
+) {
+  const resumeTitleExists = await resumeRepository.findbyTitle(
+    userId,
+    data.title
+  );
+  if (resumeTitleExists) throw conflictError(`Title exists`);
+  await resumeRepository.update(resumeId, data);
+}

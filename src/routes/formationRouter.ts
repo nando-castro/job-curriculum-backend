@@ -14,6 +14,6 @@ formationRouter.post(
   formationController.createFormation
 );
 
-formationRouter.get("/formations", formationController.getFormations);
+formationRouter.get("/formations/:resumeId", formationController.getFormations);
 
 export { formationRouter };

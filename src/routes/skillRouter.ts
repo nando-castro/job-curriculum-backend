@@ -14,6 +14,6 @@ skillRouter.post(
   skillController.createSkill
 );
 
-skillRouter.get("/skills", skillController.getSkills);
+skillRouter.get("/skills/:resumeId", skillController.getSkills);
 
 export { skillRouter };

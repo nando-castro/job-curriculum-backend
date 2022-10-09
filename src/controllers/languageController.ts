@@ -9,8 +9,8 @@ export async function createLanguage(req: Request, res: Response) {
 }
 
 export async function getLanguages(req: Request, res: Response) {
-  const { resumeId } = req.body;
+  const { resumeId } = req.params;
 
-  const languages = await languageService.getLanguages(resumeId);
+  const languages = await languageService.getLanguages(Number(resumeId));
   res.status(200).send(languages);
 }

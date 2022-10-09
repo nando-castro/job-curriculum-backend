@@ -10,9 +10,9 @@ export async function createResume(req: Request, res: Response) {
 }
 
 export async function getResume(req: Request, res: Response) {
-  const data = req.body;
+  const {resumeId} = req.params
   const { id } = res.locals.user;
-  const result = await resumeService.getResume(id, data.resumeId);
+  const result = await resumeService.getResume(id, Number(resumeId));
   res.status(200).send(result);
 }
 
@@ -20,4 +20,12 @@ export async function getResumes(req: Request, res: Response) {
   const { id } = res.locals.user;
   const result = await resumeService.getResumes(id);
   res.status(200).send(result);
+}
+
+export async function updateResume(req: Request, res: Response) {
+  const data = req.body;
+  const { resumeId } = req.params;
+  const { id } = res.locals.user;
+  await resumeService.updateResume(Number(resumeId), id, data);
+  res.sendStatus(200);
 }

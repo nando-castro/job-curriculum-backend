@@ -9,8 +9,8 @@ export async function createSkill(req: Request, res: Response) {
 }
 
 export async function getSkills(req: Request, res: Response) {
-  const { resumeId } = req.body;
+  const { resumeId } = req.params;
 
-  const skills = await skillService.getSkills(resumeId);
+  const skills = await skillService.getSkills(Number(resumeId));
   res.status(200).send(skills);
 }
