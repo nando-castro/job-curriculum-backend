@@ -11,3 +11,7 @@ export async function getLanguages(resumeId: number) {
   const result = await languageRepository.findByResumeId(resumeId);
   return result;
 }
+
+export async function deleteLanguage(resumeId: number) {
+  await languageRepository.deleteById(resumeId);
+}

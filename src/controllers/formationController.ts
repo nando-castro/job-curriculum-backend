@@ -15,3 +15,9 @@ export async function getFormations(req: Request, res: Response) {
   const formations = await formationService.getFormations(Number(resumeId));
   res.status(200).send(formations);
 }
+
+export async function deleteFormation(req: Request, res: Response) {
+  const { resumeId } = req.params;
+  await formationService.deleteFormation(Number(resumeId));
+  res.sendStatus(200);
+}

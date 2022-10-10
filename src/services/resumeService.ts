@@ -1,6 +1,10 @@
 import { unauthorizedError } from "./../utils/errorUtils";
 import { TypePersonalDataData } from "./../types/PersonalDataTypes";
 import * as resumeRepository from "../repositories/resumeRepository";
+import * as skillRepository from "../repositories/skillRepository";
+import * as languageRepository from "../repositories/languageRepository";
+import * as formationRepository from "../repositories/formationRepository";
+import * as experienceRepository from "../repositories/experienceRepository";
 import { conflictError } from "../utils/errorUtils";
 
 export async function createResume(userId: number, data: TypePersonalDataData) {
@@ -37,4 +41,12 @@ export async function updateResume(
   );
   if (resumeTitleExists) throw conflictError(`Title exists`);
   await resumeRepository.update(resumeId, data);
+}
+
+export async function deleteResume(resumeId: number) {
+  await skillRepository.deleteById(resumeId);
+  await languageRepository.deleteById(resumeId);
+  await formationRepository.deleteById(resumeId);
+  await experienceRepository.deleteById(resumeId);
+  await resumeRepository.deleteById(resumeId);
 }

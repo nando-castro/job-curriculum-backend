@@ -24,3 +24,10 @@ export async function findByResumeId(resumeId: number) {
   });
   return rows;
 }
+
+export async function deleteById(resumeId: number) {
+  const rows = await client.experience.deleteMany({
+    where: { personalDataId: resumeId },
+  });
+  return rows;
+}

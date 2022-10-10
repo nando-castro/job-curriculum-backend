@@ -14,3 +14,8 @@ export async function getSkills(req: Request, res: Response) {
   const skills = await skillService.getSkills(Number(resumeId));
   res.status(200).send(skills);
 }
+export async function deleteSkill(req: Request, res: Response) {
+  const { resumeId } = req.params;
+  await skillService.deleteSkill(Number(resumeId));
+  res.sendStatus(200);
+}

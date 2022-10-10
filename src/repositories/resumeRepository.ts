@@ -73,3 +73,10 @@ export async function update(resumeId: number, data: TypePersonalDataData) {
   });
   return rows;
 }
+
+export async function deleteById(resumeId: number) {
+  const rows = await client.personalData.delete({
+    where: { id: resumeId },
+  });
+  return rows;
+}

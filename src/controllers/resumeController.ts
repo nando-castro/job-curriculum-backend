@@ -10,7 +10,7 @@ export async function createResume(req: Request, res: Response) {
 }
 
 export async function getResume(req: Request, res: Response) {
-  const {resumeId} = req.params
+  const { resumeId } = req.params;
   const { id } = res.locals.user;
   const result = await resumeService.getResume(id, Number(resumeId));
   res.status(200).send(result);
@@ -27,5 +27,11 @@ export async function updateResume(req: Request, res: Response) {
   const { resumeId } = req.params;
   const { id } = res.locals.user;
   await resumeService.updateResume(Number(resumeId), id, data);
+  res.sendStatus(200);
+}
+
+export async function deleteResume(req: Request, res: Response) {
+  const { resumeId } = req.params;
+  await resumeService.deleteResume(Number(resumeId));
   res.sendStatus(200);
 }

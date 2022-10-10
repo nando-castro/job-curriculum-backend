@@ -19,4 +19,9 @@ experienceRouter.get(
   experienceController.getExperiences
 );
 
+experienceRouter.delete(
+  "/experience/:resumeId",
+  experienceController.deleteExperience
+);
+
 export { experienceRouter };

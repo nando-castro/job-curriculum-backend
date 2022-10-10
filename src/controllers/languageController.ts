@@ -14,3 +14,9 @@ export async function getLanguages(req: Request, res: Response) {
   const languages = await languageService.getLanguages(Number(resumeId));
   res.status(200).send(languages);
 }
+
+export async function deleteLanguage(req: Request, res: Response) {
+  const { resumeId } = req.params;
+  await languageService.deleteLanguage(Number(resumeId));
+  res.sendStatus(200);
+}

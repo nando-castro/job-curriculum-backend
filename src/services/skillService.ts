@@ -11,3 +11,7 @@ export async function getSkills(resumeId: number) {
   const result = await skillRepository.findByResumeId(resumeId);
   return result;
 }
+
+export async function deleteSkill(resumeId: number) {
+  await skillRepository.deleteById(resumeId);
+}

@@ -11,3 +11,7 @@ export async function getFormations(resumeId: number) {
   const result = await formationRepository.findByResumeId(resumeId);
   return result;
 }
+
+export async function deleteFormation(resumeId: number) {
+  await formationRepository.deleteById(resumeId);
+}

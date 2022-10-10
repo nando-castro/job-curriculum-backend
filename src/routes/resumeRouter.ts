@@ -23,4 +23,6 @@ resumeRouter.put(
   resumeController.updateResume
 );
 
+resumeRouter.delete("/resume/:resumeId", resumeController.deleteResume);
+
 export { resumeRouter };

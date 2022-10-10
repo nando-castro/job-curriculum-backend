@@ -16,4 +16,9 @@ formationRouter.post(
 
 formationRouter.get("/formations/:resumeId", formationController.getFormations);
 
+formationRouter.delete(
+  "/formation/:resumeId",
+  formationController.deleteFormation
+);
+
 export { formationRouter };

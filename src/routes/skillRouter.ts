@@ -16,4 +16,6 @@ skillRouter.post(
 
 skillRouter.get("/skills/:resumeId", skillController.getSkills);
 
+skillRouter.delete("/skill/:resumeId", skillController.deleteSkill);
+
 export { skillRouter };

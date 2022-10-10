@@ -16,4 +16,6 @@ languageRouter.post(
 
 languageRouter.get("/languages/:resumeId", languageController.getLanguages);
 
+languageRouter.delete("/language/:resumeId", languageController.deleteLanguage);
+
 export { languageRouter };
