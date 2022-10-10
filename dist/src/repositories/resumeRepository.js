@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.update = exports.findbyTitle = exports.findResumeById = exports.findById = exports.findByUserId = exports.insert = void 0;
+exports.deleteById = exports.update = exports.findbyTitle = exports.findResumeById = exports.findById = exports.findByUserId = exports.insert = void 0;
 const database_1 = __importDefault(require("../databases/database"));
 function insert(data) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -99,3 +99,12 @@ function update(resumeId, data) {
     });
 }
 exports.update = update;
+function deleteById(resumeId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const rows = yield database_1.default.personalData.delete({
+            where: { id: resumeId },
+        });
+        return rows;
+    });
+}
+exports.deleteById = deleteById;

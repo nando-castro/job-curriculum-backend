@@ -36,3 +36,4 @@ resumeRouter.post("/resume/create", (0, schemaValidateMiddleware_1.schemaValidat
 resumeRouter.get("/resume/:resumeId", resumeController.getResume);
 resumeRouter.get("/resumes", resumeController.getResumes);
 resumeRouter.put("/resume/update/:resumeId", (0, schemaValidateMiddleware_1.schemaValidateMiddleware)(personalDataSchema_1.personalDataSchema), resumeController.updateResume);
+resumeRouter.delete("/resume/:resumeId", resumeController.deleteResume);

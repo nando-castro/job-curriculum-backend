@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLanguages = exports.createLanguage = void 0;
+exports.deleteLanguage = exports.getLanguages = exports.createLanguage = void 0;
 const languageService = __importStar(require("../services/languageService"));
 function createLanguage(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -50,3 +50,11 @@ function getLanguages(req, res) {
     });
 }
 exports.getLanguages = getLanguages;
+function deleteLanguage(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { resumeId } = req.params;
+        yield languageService.deleteLanguage(Number(resumeId));
+        res.sendStatus(200);
+    });
+}
+exports.deleteLanguage = deleteLanguage;

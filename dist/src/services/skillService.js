@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSkills = exports.createSkill = void 0;
+exports.deleteSkill = exports.getSkills = exports.createSkill = void 0;
 const skillRepository = __importStar(require("../repositories/skillRepository"));
 function createSkill(data) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -49,3 +49,9 @@ function getSkills(resumeId) {
     });
 }
 exports.getSkills = getSkills;
+function deleteSkill(resumeId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield skillRepository.deleteById(resumeId);
+    });
+}
+exports.deleteSkill = deleteSkill;

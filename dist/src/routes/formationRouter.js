@@ -34,3 +34,4 @@ exports.formationRouter = formationRouter;
 formationRouter.use(authValidateMiddleware_1.ensureAuthenticatedMiddleware);
 formationRouter.post("/formation/create", (0, schemaValidateMiddleware_1.schemaValidateMiddleware)(formationSchema_1.formationSchema), formationController.createFormation);
 formationRouter.get("/formations/:resumeId", formationController.getFormations);
+formationRouter.delete("/formation/:resumeId", formationController.deleteFormation);

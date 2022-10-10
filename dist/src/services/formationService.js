@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFormations = exports.createFormation = void 0;
+exports.deleteFormation = exports.getFormations = exports.createFormation = void 0;
 const formationRepository = __importStar(require("../repositories/formationRepository"));
 function createFormation(data) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -49,3 +49,9 @@ function getFormations(resumeId) {
     });
 }
 exports.getFormations = getFormations;
+function deleteFormation(resumeId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield formationRepository.deleteById(resumeId);
+    });
+}
+exports.deleteFormation = deleteFormation;

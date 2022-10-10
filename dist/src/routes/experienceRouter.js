@@ -34,3 +34,4 @@ exports.experienceRouter = experienceRouter;
 experienceRouter.use(authValidateMiddleware_1.ensureAuthenticatedMiddleware);
 experienceRouter.post("/experience/create", (0, schemaValidateMiddleware_1.schemaValidateMiddleware)(experienceSchema_1.experienceSchema), experienceController.createExperience);
 experienceRouter.get("/experiences/:resumeId", experienceController.getExperiences);
+experienceRouter.delete("/experience/:resumeId", experienceController.deleteExperience);

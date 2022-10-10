@@ -32,20 +32,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getExperiences = exports.createExperience = void 0;
-const experienceRepoitory = __importStar(require("../repositories/experienceRepository"));
+exports.deleteExperience = exports.getExperiences = exports.createExperience = void 0;
+const experienceRepository = __importStar(require("../repositories/experienceRepository"));
 function createExperience(data) {
     return __awaiter(this, void 0, void 0, function* () {
         const dataExperience = Object.assign({}, data);
-        const result = yield experienceRepoitory.insert(dataExperience);
+        const result = yield experienceRepository.insert(dataExperience);
         return result;
     });
 }
 exports.createExperience = createExperience;
 function getExperiences(resumeId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const result = yield experienceRepoitory.findByResumeId(resumeId);
+        const result = yield experienceRepository.findByResumeId(resumeId);
         return result;
     });
 }
 exports.getExperiences = getExperiences;
+function deleteExperience(resumeId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield experienceRepository.deleteById(resumeId);
+    });
+}
+exports.deleteExperience = deleteExperience;

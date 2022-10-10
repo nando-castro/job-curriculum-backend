@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSkills = exports.createSkill = void 0;
+exports.deleteSkill = exports.getSkills = exports.createSkill = void 0;
 const skillService = __importStar(require("../services/skillService"));
 function createSkill(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -50,3 +50,11 @@ function getSkills(req, res) {
     });
 }
 exports.getSkills = getSkills;
+function deleteSkill(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { resumeId } = req.params;
+        yield skillService.deleteSkill(Number(resumeId));
+        res.sendStatus(200);
+    });
+}
+exports.deleteSkill = deleteSkill;

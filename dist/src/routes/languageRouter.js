@@ -34,3 +34,4 @@ exports.languageRouter = languageRouter;
 languageRouter.use(authValidateMiddleware_1.ensureAuthenticatedMiddleware);
 languageRouter.post("/language/create", (0, schemaValidateMiddleware_1.schemaValidateMiddleware)(languageSchema_1.languageSchema), languageController.createLanguage);
 languageRouter.get("/languages/:resumeId", languageController.getLanguages);
+languageRouter.delete("/language/:resumeId", languageController.deleteLanguage);

@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFormations = exports.createFormation = void 0;
+exports.deleteFormation = exports.getFormations = exports.createFormation = void 0;
 const formationService = __importStar(require("../services/formationService"));
 function createFormation(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -50,3 +50,11 @@ function getFormations(req, res) {
     });
 }
 exports.getFormations = getFormations;
+function deleteFormation(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { resumeId } = req.params;
+        yield formationService.deleteFormation(Number(resumeId));
+        res.sendStatus(200);
+    });
+}
+exports.deleteFormation = deleteFormation;

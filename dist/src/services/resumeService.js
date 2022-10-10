@@ -32,9 +32,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateResume = exports.getResumes = exports.getResume = exports.createResume = void 0;
+exports.deleteResume = exports.updateResume = exports.getResumes = exports.getResume = exports.createResume = void 0;
 const errorUtils_1 = require("./../utils/errorUtils");
 const resumeRepository = __importStar(require("../repositories/resumeRepository"));
+const skillRepository = __importStar(require("../repositories/skillRepository"));
+const languageRepository = __importStar(require("../repositories/languageRepository"));
+const formationRepository = __importStar(require("../repositories/formationRepository"));
+const experienceRepository = __importStar(require("../repositories/experienceRepository"));
 const errorUtils_2 = require("../utils/errorUtils");
 function createResume(userId, data) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -72,3 +76,13 @@ function updateResume(resumeId, userId, data) {
     });
 }
 exports.updateResume = updateResume;
+function deleteResume(resumeId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield skillRepository.deleteById(resumeId);
+        yield languageRepository.deleteById(resumeId);
+        yield formationRepository.deleteById(resumeId);
+        yield experienceRepository.deleteById(resumeId);
+        yield resumeRepository.deleteById(resumeId);
+    });
+}
+exports.deleteResume = deleteResume;

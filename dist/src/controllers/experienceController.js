@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getExperiences = exports.createExperience = void 0;
+exports.deleteExperience = exports.getExperiences = exports.createExperience = void 0;
 const experienceService = __importStar(require("../services/experienceService"));
 function createExperience(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -50,3 +50,11 @@ function getExperiences(req, res) {
     });
 }
 exports.getExperiences = getExperiences;
+function deleteExperience(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { resumeId } = req.params;
+        yield experienceService.deleteExperience(Number(resumeId));
+        res.sendStatus(200);
+    });
+}
+exports.deleteExperience = deleteExperience;

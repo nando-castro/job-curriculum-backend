@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLanguages = exports.createLanguage = void 0;
+exports.deleteLanguage = exports.getLanguages = exports.createLanguage = void 0;
 const languageRepository = __importStar(require("../repositories/languageRepository"));
 function createLanguage(data) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -49,3 +49,9 @@ function getLanguages(resumeId) {
     });
 }
 exports.getLanguages = getLanguages;
+function deleteLanguage(resumeId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield languageRepository.deleteById(resumeId);
+    });
+}
+exports.deleteLanguage = deleteLanguage;

@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateResume = exports.getResumes = exports.getResume = exports.createResume = void 0;
+exports.deleteResume = exports.updateResume = exports.getResumes = exports.getResume = exports.createResume = void 0;
 const resumeService = __importStar(require("../services/resumeService"));
 function createResume(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -70,3 +70,11 @@ function updateResume(req, res) {
     });
 }
 exports.updateResume = updateResume;
+function deleteResume(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { resumeId } = req.params;
+        yield resumeService.deleteResume(Number(resumeId));
+        res.sendStatus(200);
+    });
+}
+exports.deleteResume = deleteResume;

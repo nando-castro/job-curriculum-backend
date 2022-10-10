@@ -34,3 +34,4 @@ exports.skillRouter = skillRouter;
 skillRouter.use(authValidateMiddleware_1.ensureAuthenticatedMiddleware);
 skillRouter.post("/skill/create", (0, schemaValidateMiddleware_1.schemaValidateMiddleware)(skillSchema_1.skillSchema), skillController.createSkill);
 skillRouter.get("/skills/:resumeId", skillController.getSkills);
+skillRouter.delete("/skill/:resumeId", skillController.deleteSkill);
